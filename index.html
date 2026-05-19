@@ -1,114 +1,248 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>hemanthrone</title>
-  <meta name="google-site-verification" content="ohRWBoR112oCbwgPPLXTv2cxhHXqbI-Us-SX_JdkhuA" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      font-family: Arial;
-      text-align: center;
-      background: #111;
-      color: white;
-      padding: 20px;
-    }
+<meta name="google-site-verification" content="ohRWBoR112oCbwgPPLXTv2cxhHXqbI-Us-SX_JdkhuA" />
 
-    input, button {
-      padding: 10px;
-      margin: 5px;
-      border: none;
-      border-radius: 5px;
-    }
+<title>hemanthrone</title>
 
-    button {
-      background: #00adb5;
-      color: white;
-    }
+<style>
 
-    .box {
-      margin: 20px;
-    }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Inter,sans-serif;
+}
 
-    ul {
-      list-style: none;
-      padding: 0;
-    }
+body{
+    background:#0a0a0a;
+    color:white;
+    height:100vh;
+}
 
-    li {
-      background: #222;
-      margin: 5px;
-      padding: 10px;
-      border-radius: 5px;
-    }
-  </style>
+.container{
+    max-width:430px;
+    margin:auto;
+    padding:20px;
+}
+
+.title{
+    font-size:32px;
+    font-weight:700;
+    margin-bottom:25px;
+}
+
+.tabs{
+    display:flex;
+    gap:10px;
+    margin-bottom:25px;
+    overflow-x:auto;
+}
+
+.tab{
+    padding:10px 16px;
+    border-radius:14px;
+    background:#151515;
+    border:none;
+    color:#888;
+    cursor:pointer;
+    transition:.2s;
+    white-space:nowrap;
+}
+
+.tab.active{
+    background:white;
+    color:black;
+}
+
+.page{
+    display:none;
+}
+
+.page.show{
+    display:block;
+}
+
+.card{
+    background:#151515;
+    border-radius:24px;
+    padding:22px;
+}
+
+.small{
+    color:#777;
+    font-size:14px;
+    margin-bottom:12px;
+}
+
+.question{
+    font-size:24px;
+    line-height:1.4;
+    margin-bottom:18px;
+}
+
+textarea,input{
+    width:100%;
+    background:#0f0f0f;
+    border:none;
+    outline:none;
+    color:white;
+    padding:16px;
+    border-radius:18px;
+    margin-top:10px;
+    font-size:15px;
+}
+
+textarea{
+    min-height:180px;
+    resize:none;
+}
+
+.button{
+    margin-top:15px;
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:18px;
+    background:white;
+    color:black;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.course{
+    margin-top:15px;
+    padding:16px;
+    border-radius:18px;
+    background:#0f0f0f;
+    font-size:18px;
+}
+
+</style>
 </head>
-
 <body>
 
-<h1>hemanthrone</h1>
+<div class="container">
 
-<div class="box">
-  <h2>⏱ Timer</h2>
-  <input id="minutes" type="number" placeholder="Minutes">
-  <button onclick="startTimer()">Start</button>
-  <h3 id="time">0</h3>
-</div>
+    <div class="title">
+        Heman 🚀
+    </div>
 
-<div class="box">
-  <h2>📝 Motivation</h2>
-  <input id="motivation" placeholder="Write something to yourself">
-  <button onclick="saveMessage()">Save</button>
-</div>
+    <div class="tabs">
+        <button class="tab active" onclick="openPage('daily',this)">
+            Daily
+        </button>
 
-<div class="box">
-  <h2>📋 To-Do</h2>
-  <input id="task" placeholder="New task">
-  <button onclick="addTask()">Add</button>
-  <ul id="list"></ul>
+        <button class="tab" onclick="openPage('notes',this)">
+            Notes
+        </button>
+
+        <button class="tab" onclick="openPage('course',this)">
+            Course
+        </button>
+
+        <button class="tab" onclick="openPage('user',this)">
+            User
+        </button>
+    </div>
+
+    <div id="daily" class="page show">
+        <div class="card">
+
+            <div class="small">
+                Daily Question
+            </div>
+
+            <div class="question">
+                Find x:
+                <br><br>
+                x² - 5x + 6 = 0
+            </div>
+
+            <textarea placeholder="Your answer..."></textarea>
+
+        </div>
+    </div>
+
+    <div id="notes" class="page">
+
+        <div class="card">
+
+            <div class="small">
+                Personal Notes
+            </div>
+
+            <textarea placeholder="Write anything..."></textarea>
+
+            <button class="button">
+                Save
+            </button>
+
+        </div>
+
+    </div>
+
+    <div id="course" class="page">
+
+        <div class="card">
+
+            <div class="small">
+                Current Course
+            </div>
+
+            <div class="course">
+                Algebra Basics
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="user" class="page">
+
+        <div class="card">
+
+            <div class="small">
+                Your User ID
+            </div>
+
+            <input type="text" placeholder="Enter your name">
+
+            <button class="button">
+                Save
+            </button>
+
+        </div>
+
+    </div>
+
 </div>
 
 <script>
-let timer;
 
-function startTimer() {
-  let min = document.getElementById("minutes").value;
-  let seconds = min * 60;
+function openPage(pageId,button){
 
-  clearInterval(timer);
+    let pages=document.querySelectorAll(".page");
+    let tabs=document.querySelectorAll(".tab");
 
-  timer = setInterval(() => {
-    if (seconds <= 0) {
-      clearInterval(timer);
-      alert("Break time 😄");
-    } else {
-      seconds--;
-      document.getElementById("time").innerText = seconds + " sec";
-    }
-  }, 1000);
+    pages.forEach(page=>{
+        page.classList.remove("show");
+    });
+
+    tabs.forEach(tab=>{
+        tab.classList.remove("active");
+    });
+
+    document.getElementById(pageId).classList.add("show");
+
+    button.classList.add("active");
 }
 
-function saveMessage() {
-  let msg = document.getElementById("motivation").value;
-  localStorage.setItem("msg", msg);
-  alert("Saved 😏");
-}
-
-function addTask() {
-  let task = document.getElementById("task").value;
-  let li = document.createElement("li");
-  li.innerText = task;
-  document.getElementById("list").appendChild(li);
-}
-
-window.onbeforeunload = function() {
-  let msg = localStorage.getItem("msg") || "Don't quit now 😤";
-  return msg;
-};
 </script>
 
 </body>
-
-
 </html>
